@@ -1,16 +1,16 @@
-// Game configuration
+// Game config
 const MAP_SIZE = 20;
-const CELL_SIZE = 25; // in pixels
-const MOVE_SPEED = 100; // milliseconds for movement animation
+const CELL_SIZE = 25; // (px)
+const MOVE_SPEED = 100; // movement animation (ms)
 
-// Asset definitions for consistent data
+// Asset definitions
 const assetDefinitions = {
   wall: [
     { type: 'wall-0', collision: true }, // Liquid Wall - assumed solid for collision
     { type: 'wall-1', collision: true }, // Solid Wall
     { type: 'wall-2', collision: false }, // Semi-solid Wall - assumed walkable
   ],
-  floor: [
+  floor: [ // all assumed walkable
     { type: 'floor-0', collision: false }, // Water Floor
     { type: 'floor-1', collision: false }, // Stone Floor
     { type: 'floor-2', collision: false }, // Weakened Stone Floor
@@ -19,7 +19,7 @@ const assetDefinitions = {
   ],
 };
 
-// Map state using a 2D array for efficient lookup
+// Map state using 2D array
 let grid;
 
 // Character state
@@ -41,9 +41,7 @@ const coordYInput = document.getElementById('coord-y');
 const objectTypeSelect = document.getElementById('object-type');
 let characterElement;
 
-/**
- * Initializes the game grid and character.
- */
+// Initialize game grid & character
 function init() {
   createGrid();
   createCharacter();
@@ -51,15 +49,14 @@ function init() {
   updateCharacterPosition();
 }
 
-/**
- * Creates the game grid and initializes the map.
- */
+
+// Create game grid & initialize map
 function createGrid() {
   gridContainer.style.gridTemplateColumns = `repeat(${MAP_SIZE}, ${CELL_SIZE}px)`;
   gridContainer.style.width = `${MAP_SIZE * CELL_SIZE}px`;
   gridContainer.style.height = `${MAP_SIZE * CELL_SIZE}px`;
 
-  // Initialize grid with default cells (e.g., solid walls around the edge)
+  // Initialize grid with default cells
   grid = Array(MAP_SIZE).fill(null).map(() => Array(MAP_SIZE).fill(null));
   gridContainer.innerHTML = '';
 
@@ -67,10 +64,10 @@ function createGrid() {
     for (let x = 0; x < MAP_SIZE; x++) {
       let cellData;
       if (x === 0 || x === MAP_SIZE - 1 || y === 0 || y === MAP_SIZE - 1) {
-        //: Use the correct index for a solid wall, e.g., index 1
+        // Use the index for solid wall
         cellData = assetDefinitions.wall[1]; 
       } else {
-        //: Use the correct index for a floor, e.g., index 1 for stone floor
+        // Use correct index for floor
         cellData = assetDefinitions.floor[1]; 
       }
       grid[y][x] = cellData;
@@ -84,9 +81,8 @@ function createGrid() {
 }
 
 
-/**
- * Creates the character sprite and positions it.
- */
+
+// Create character sprite & position it
 function createCharacter() {
   characterElement = document.createElement('div');
   characterElement.classList.add('character');
@@ -97,46 +93,39 @@ function createCharacter() {
   character.posY = Math.floor(MAP_SIZE / 2);
 }
 
-/**
- * Updates the character's visual position.
- */
+
+// Updates the character's visual position.
 function updateCharacterPosition() {
   const { posX, posY } = character;
   characterElement.style.transform = `translate(${posX * CELL_SIZE}px, ${posY * CELL_SIZE}px)`;
   charStats.textContent = `(${posX}, ${posY})`;
 }
 
-/**
- * Handles character movement.
- * @param {number} dx - The change in x-coordinate.
- * @param {number} dy - The change in y-coordinate.
- */
+
+// Handle character movement
+// @param {number} dx: change in x-coordinate | @param {number} dy: change in y-coordinate
 function move(dx, dy) {
   if (character.isMoving) return;
 
   const nextX = character.posX + dx;
   const nextY = character.posY + dy;
 
-  // Check if the target cell is valid and not a collision
+  // Check if target cell is valid & not collision
   if (isWalkable(nextX, nextY)) {
     character.isMoving = true;
     character.posX = nextX;
     character.posY = nextY;
     updateCharacterPosition();
 
-    // Use setTimeout for a single step, not setInterval
+    // Use setTimeout for single step
     setTimeout(() => {
       character.isMoving = false;
     }, MOVE_SPEED);
   }
 }
 
-/**
- * Checks if a cell is walkable based on grid data.
- * @param {number} x - The x-coordinate of the cell.
- * @param {number} y - The y-coordinate of the cell.
- * @returns {boolean} - True if the cell is walkable, false otherwise.
- */
+// Checks if cell is walkable based on grid data
+// @param {number} x: x-coordinate of the cell | param {number} y: y-coordinate of cell
 function isWalkable(x, y) {
   // Check for out-of-bounds
   if (x < 0 || x >= MAP_SIZE || y < 0 || y >= MAP_SIZE) {
@@ -146,13 +135,10 @@ function isWalkable(x, y) {
   return cellData && !cellData.collision;
 }
 
-/**
- * Updates a cell's type and re-renders the map.
- * @param {number} x - The x-coordinate of the cell.
- * @param {number} y - The y-coordinate of the cell.
- * @param {string} newType - The new type (e.g., 'wall', 'floor').
- * @param {number} newIndex - The index within the asset type.
- */
+
+// Update cell type & re-render map.
+// @param {number} x: x-coordinate of cell | param {number} y: y-coordinate of cell
+// @param {string} newType: new type | param {number} newIndex: index within asset type
 function updateCell(x, y, newType, newIndex) {
   if (x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE) {
     let newCellData;
@@ -168,11 +154,8 @@ function updateCell(x, y, newType, newIndex) {
   }
 }
 
-/**
- * Renders a single cell based on the grid data.
- * @param {number} x - The x-coordinate of the cell.
- * @param {number} y - The y-coordinate of the cell.
- */
+// Render single cell based on grid data.
+// @param {number} x: x-coordinate of cell | @param {number} y: y-coordinate of cell
 function renderCell(x, y) {
   const cellElement = gridContainer.querySelector(`[data-x="${x}"][data-y="${y}"]`);
   if (cellElement) {
@@ -185,9 +168,7 @@ function renderCell(x, y) {
   }
 }
 
-/**
- * Sets up all event listeners.
- */
+// Set up all event listeners
 function setupEventListeners() {
   // Movement buttons
   document.getElementById('up-btn').addEventListener('click', () => move(0, -1));
@@ -250,5 +231,5 @@ function setupEventListeners() {
   };
 }
 
-// Start the game when the DOM is ready
+// Start game when DOM is ready
 document.addEventListener('DOMContentLoaded', init);
