@@ -26,6 +26,7 @@ body {
   border: 2px solid #555;
   background-color: #888;
   margin-bottom: 20px;
+  position: relative; /* Add this line */
 }
 
 .cell {
@@ -58,8 +59,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 50px; /* Set to cell size */
+  height: 50px; /* Set to cell size */
   background-color: red;
   z-index: 10;
   transition: transform 0.1s ease-in-out;
@@ -96,4 +97,3 @@ body {
   padding: 15px;
   border-radius: 8px;
 }
-
