@@ -224,7 +224,8 @@ function setupEventListeners() {
 }
 
 // message for JavaScript console
-const message = `console-only commands:
+const message = `welcome to the console
+console-only commands:
 toggleMovementBtn() | no parameters, call this function to toggle the visibility of the movement buttons (hidden by default)
 createGrid() | no parameters, call this function to create/re-render the grid
 renderCell(x, y) | two parameters, call this function with its parameters to render a cell
