@@ -17,41 +17,57 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 #grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 50px);
-  grid-template-rows: repeat(2, 50px);
+  /* Explicitly declare the container as a grid */
+  display: grid; 
   border: 2px solid #555;
   background-color: #888;
   margin-bottom: 20px;
-  position: relative; /* Add this line */
+  position: relative;
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
-  position: relative;
+  width: 25px;
+  height: 25px;
+  /* position: relative;  Removed as it's not needed for the cells themselves */
   background-color: #ccc;
   border: 1px solid #777;
 }
 
 /* Cell Type Visuals */
-.wall-1 { /* solid wall */
+.wall-1 {
   background-color: #444;
 }
 
-.wall-0 { /* liquid wall */
+.wall-0 {
   background-color: #0088cc;
 }
 
-.wall-2 { /* semi-solid wall */
+.wall-2 {
   background-color: #e6e600;
 }
 
-.floor-1 { /* stone floor */
+.floor-1 {
   background-color: #999;
+}
+
+.floor-0 {
+  background-color: #00cccc;
+}
+
+.floor-2 {
+  background-color: #c4c442;
+}
+
+.floor-3 {
+  background-color: #8b4513;
+}
+
+.floor-4 {
+  background-color: #d2b48c;
 }
 
 /* Character Sprite */
@@ -59,8 +75,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50px; /* Set to cell size */
-  height: 50px; /* Set to cell size */
+  width: 25px;
+  height: 25px;
   background-color: red;
   z-index: 10;
   transition: transform 0.1s ease-in-out;
@@ -92,8 +108,52 @@ body {
 }
 
 .character-stats {
-  background: #222;
-  color: #fff;
-  padding: 15px;
-  border-radius: 8px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 75%;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  margin-bottom: 2.5vh;
+}
+
+/* Dev Console Styles */
+.dev-console {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  z-index: 20;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 5px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dropdown-content.show {
+  display: flex;
+}
+
+.dropdown-content label,
+.dropdown-content input,
+.dropdown-content select,
+.dropdown-content button {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.dropdown-content h3 {
+  margin: 0 0 10px 0;
+}
+
+/* Class to hide the movement controls */
+.movement-controls.hidden {
+  display: none;
 }
