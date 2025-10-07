@@ -11,7 +11,36 @@
     <div class="game-container">
       <div id="grid-container"></div>
       <div class="controls-container">
-        <div class="movement-controls">
+        <div class="dev-console">
+          <button id="dev-console-toggle">Dev Console</button>
+          <div id="dev-console-dropdown" class="dropdown-content">
+            <h3>Modify Cell at:</h3>
+            <label for="coord-x">X:</label>
+            <input type="number" id="coord-x" value="0" min="-10" max="10" />
+            <label for="coord-y">Y:</label>
+            <input type="number" id="coord-y" value="0" min="-10" max="10" />
+
+            <label for="object-type">Object Type:</label>
+            <select id="object-type">
+              <option value="none">Clear</option>
+              <optgroup label="Walls">
+                <option value="wall-0">Liquid Wall</option>
+                <option value="wall-1">Solid Wall</option>
+                <option value="wall-2">Semi-solid Wall</option>
+              </optgroup>
+              <optgroup label="Floors">
+                <option value="floor-0">Water Floor</option>
+                <option value="floor-1">Stone Floor</option>
+                <option value="floor-2">Weakened Stone Floor</option>
+                <option value="floor-3">Wooden Floor</option>
+                <option value="floor-4">Weakened Wooden Floor</option>
+              </optgroup>
+            </select>
+            <button id="apply-changes-btn">Apply Changes</button>
+          </div>
+        </div>
+
+        <div class="movement-controls hidden">
           <button id="up-btn">Up</button>
           <div class="horizontal-controls">
             <button id="left-btn">Left</button>
@@ -20,9 +49,7 @@
           <button id="down-btn">Down</button>
         </div>
         <div class="character-stats">
-          <h2>Character Stats</h2>
           <p>Position: <span id="char-pos"></span></p>
-          <!-- Add more stats here later -->
         </div>
       </div>
     </div>
