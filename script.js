@@ -1,7 +1,7 @@
 // Game config
-const MAP_SIZE = 20;
-const CELL_SIZE = 25; // (px)
-const MOVE_SPEED = 100; // movement animation (ms)
+var MAP_SIZE = 20;
+var CELL_SIZE = 25; // (px)
+var MOVE_SPEED = 100; // movement animation (ms)
 
 // Asset definitions
 const assetDefinitions = {
@@ -40,14 +40,6 @@ const coordXInput = document.getElementById('coord-x');
 const coordYInput = document.getElementById('coord-y');
 const objectTypeSelect = document.getElementById('object-type');
 let characterElement;
-
-// Initialize game grid & character
-function init() {
-  createGrid();
-  createCharacter();
-  setupEventListeners();
-  updateCharacterPosition();
-}
 
 
 // Create game grid & initialize map
@@ -225,10 +217,108 @@ function setupEventListeners() {
     }
   });
 
-  // Toggle movement buttons visibility
+  // Toggle movement buttons visibility | intended for use only in JavaScript console
   function toggleMovementBtn(){
     movementControls.classList.toggle('hidden');
   };
+}
+
+// message for JavaScript console
+const message = `console-only commands:
+toggleMovementBtn() | no parameters, call this function to toggle the visibility of the movement buttons (hidden by default)
+createGrid() | no parameters, call this function to create/re-render the grid
+renderCell(x, y) | two parameters, call this function with its parameters to render a cell
+updateCell(x, y, newType, newIndex) | four parameters, call this function with its parameters to update a cell
+move(dx, dy) | two parameters, call this function with its parameters to move the character
+
+initial game config: (edit at your own risk, or enjoyment)
+MAP_SIZE = 20; | cells (#)
+CELL_SIZE = 25; | size (px)
+MOVE_SPEED = 100; | movement animation (ms)
+
+extras: (uneditable)
+type "help" to display this message again
+type "assetsInfo" to display game asset information and character information (stored in arrays)
+type "controls" to display the game controls
+type "credits" to display the credits
+`;
+
+// assetsInfoMessage for JavaScript console
+const assetsInfoMessage = `assets info:
+const assetDefinitions = {
+  wall: [
+    { type: 'wall-0', collision: true }, // Liquid Wall - assumed solid for collision
+    { type: 'wall-1', collision: true }, // Solid Wall
+    { type: 'wall-2', collision: false }, // Semi-solid Wall - assumed walkable
+  ],
+  floor: [ // all assumed walkable
+    { type: 'floor-0', collision: false }, // Water Floor
+    { type: 'floor-1', collision: false }, // Stone Floor
+    { type: 'floor-2', collision: false }, // Weakened Stone Floor
+    { type: 'floor-3', collision: false }, // Wooden Floor
+    { type: 'floor-4', collision: false }, // Weakened Wooden Floor
+  ],
+};
+
+initial character state:
+const character = {
+  posX: 0,
+  posY: 0,
+  isMoving: false,
+};
+
+current character state:
+const character = {
+  posX: ${character.posX},
+  posY: ${character.posY},
+  isMoving: ${character.isMoving},
+};
+`;
+
+// controlsMessage for JavaScript console
+const controlsMessage = `constrols:
+w-a-s-d | arrow keys
+`;
+
+// creditsMessage for JavaScript console
+const creditsMessage = `
+Author: "absurd-oliver" & "absurdo-liver"
+github repository: "game-maybe-"
+links: 
+  website link: https://absurdo-liver.github.io/game-maybe-/
+  github repository link: https://github.com/absurdo-liver/game-maybe-
+  author github profiles links: https://github.com/absurd-oliver/ & https://github.com/absurdo-liver/
+`;
+
+// help command in JavaScript console
+function help(){
+  console.log(message);
+}
+
+// assetsInfo command in JavaScript console
+function assetsInfo(){
+  console.log(assetsInfoMessage);
+}
+
+// controls command in JavaScript console
+function controls(){
+  console.log(controlsMessage);
+}
+
+// credits command in JavaScript console
+function credits(){
+  console.log(creditsMessage);
+}
+
+// Initialize game grid & character
+function init() {
+  createGrid();
+  createCharacter();
+  setupEventListeners();
+  updateCharacterPosition();
+
+  // message logged to JavaScript console for those who visit it
+  console.log(message);
 }
 
 // Start game when DOM is ready
