@@ -238,10 +238,10 @@ CELL_SIZE = 25; | size (px)
 MOVE_SPEED = 100; | movement animation (ms)
 
 extras: (uneditable)
-type "help" to display this message again
-type "assetsInfo" to display game asset information and character information (stored in arrays)
-type "controls" to display the game controls
-type "credits" to display the credits
+type "help()" to display this message again
+type "assetsInfo()" to display game asset information and character information (stored in arrays)
+type "controls()" to display the game controls
+type "credits()" to display the credits
 `;
 
 // assetsInfoMessage for JavaScript console
