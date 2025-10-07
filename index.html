@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Game</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <div id="grid-container"></div>
+      <div class="controls-container">
+        <div class="movement-controls">
+          <button id="up-btn">Up</button>
+          <div class="horizontal-controls">
+            <button id="left-btn">Left</button>
+            <button id="right-btn">Right</button>
+          </div>
+          <button id="down-btn">Down</button>
+        </div>
+        <div class="character-stats">
+          <h2>Character Stats</h2>
+          <p>Position: <span id="char-pos"></span></p>
+          <!-- Add more stats here later -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
